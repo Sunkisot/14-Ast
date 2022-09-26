@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 什么时候用递归
+      // 1. 规则复现
+      // 2. 参数（什么时候递归用什么参数）
+      // 3. 准备结果对象/数组
+
+
+      let arr1 = [1, 2, [3, [4, 5], 6], 7, [8], 9];
+
+      function fn(arr) {
+        return arr.reduce(
+          (t, e) => {
+            if (Array.isArray(e)) {
+              t.children.push(fn(e));
+            } else {
+              t.children.push({ value: e });
+            }
+            return t;
+          },
+          { children: [] }
+        );
+      }
+
+      console.log(fn(arr1));
+
+
+      // 写法2
+      // 1。递归每一项
+      // 2。不用准备结果数组
+
+      function convert(item) {
+        if(!Array.isArray(item)) {
+          return {
+            value: item
+          }
+        }else {
+          return {
+            children: item.map(e => convert(e))
+          }
+        }
+      }
+
+      console.log(convert(arr1))
+    </script>
+  </body>
+</html>

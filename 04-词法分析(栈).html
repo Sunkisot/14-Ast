@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 词法分析的时候，经常需要用到栈
+
+      // 试编写"智能重复”smartRepeat函数，实现：
+      // 将3[abc]abcabcabc
+      // 将3[2[a]2[b]]变为aabbaabbaabb
+      // 将2[1[a]3[b]2[3[c]4[d]]]abbbcccddddcccddddabbbcccddddcccdddd
+
+      // 不用考虑输入字符串是非法的情况，比如：
+      // 2[a3[b]是错误的，应该补一个1，即2[1[a]3[b]
+      // [abc]是错误的，应该补一个1，即1[abc]
+
+      let str = "3[1[a]2[b]4[2[c]3[d]]]";
+      // 指针
+      let i = 0;
+      // 栈1，存放数字
+      let num = [];
+      // 栈2，存放临时字符串
+      let res = [];
+      while (i < str.length - 1) {
+        if (/\d/.test(str[i])) {
+          num.push(str[i]);
+        } else if (str[i] == "[") {
+          res.push("");
+        } else if (/[a-z]/.test(str[i])) {
+          res[res.length - 1] = str[i];
+        } else if (str[i] == "]") {
+          res[res.length - 2] += res[res.length - 1].repeat(
+            num[num.length - 1]
+          );
+          res.splice(res.length - 1, 1);
+          num.splice(num.length - 1, 1);
+        }
+        i++;
+      }
+      console.log(num, res);
+    </script>
+  </body>
+</html>

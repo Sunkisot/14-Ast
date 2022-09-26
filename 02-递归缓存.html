@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //试输出斐波那契数列的前10项，即1、1、2、3、5、8、13、21、34、55
+      // 1.递归
+      // 混存对象
+      let cache = {};
+      function fib(n) {
+        if (cache.hasOwnProperty(n)) {
+          return cache[n];
+        }
+        let data = n == 0 || n == 1 ? 1 : fib(n - 2) + fib(n - 1);
+        console.count("计数");
+        console.log(data);
+        cache[n] = data;
+        return data;
+      }
+      for (var i = 0; i < 10; i++) {
+        fib(i);
+      }
+      console.log(cache);
+
+      // 2.
+      let arr = [1, 1];
+      for (var i = 0; i < 10; i++) {
+        arr.push(arr[i] + arr[i + 1]);
+      }
+      console.log(arr);
+
+      
+    </script>
+  </body>
+</html>
